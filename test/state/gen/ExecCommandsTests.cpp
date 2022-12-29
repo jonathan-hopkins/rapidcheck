@@ -47,7 +47,10 @@ struct GeneratesOnConstrution : public IntVecCmd {
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-#endif // defined(__GNUC__) || defined(__clang__)
+#elif defined(_MSC_VER)
+#pragma warning( push )
+#pragma warning( disable:4996 )
+#endif
 
 TEST_CASE("state::gen::execOneOf") {
 #ifndef RC_DONT_USE_RTTI
@@ -95,7 +98,9 @@ TEST_CASE("state::gen::execOneOf") {
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
-#endif // defined(__GNUC__) || defined(__clang__)
+#elif defined(_MSC_VER)
+#pragma warning(pop)
+#endif
 
 TEST_CASE("state::gen::execOneOfWithArgs") {
 #ifndef RC_DONT_USE_RTTI
