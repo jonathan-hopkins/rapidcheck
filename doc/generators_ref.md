@@ -410,6 +410,24 @@ const auto person = *gen::makeShared<Person>(
     gen::inRange(0, 100));         // Age
 ```
 
+### `Gen<std::variant<Alternatives...>> variant<Alternatives...>(Gen<Args>... gens)`
+
+Returns a generator that constructs a `variant` using one of the provided
+generators. The gens parameters must match the size and order of the
+variant's alternative types. Each alternative type has equal likelihood of
+being constructed, regardless of the (implicit) size.
+
+```C++
+// Example:
+const auto person = *gen::variant<int, std::string>(
+    gen::inRange(0, 100),
+    gen::arbitrary<std::string>());
+// Automatic conversion:
+const auto person = *gen::variant<double, std::string>(
+    gen::arbitrary<float>(), // variant will promote float to double during construction.
+    gen::just("foo")); // variant will construct a string from the const char* within the variant.
+```
+
 ### `Gen<T> build(Gen<T> gen, Bindings... bindings)`
 
 Generates objects of type `T` by setting members of the object according to the specified bindings. A binding is created using `gen::set(Member member, Gen<T> gen)`. `Member` should be a pointer to a member of that object and `gen` should be an appropriate generator for the type of the member. The member may be one of:

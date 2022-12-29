@@ -48,6 +48,7 @@ Out of the box, RapidCheck has support for generating arbitrary values of the fo
 - `std::basic_string<T>`
 - `std::tuple<Ts...>`
 - `std::pair<T1, T2>`
+- `std::variant<Ts...>` (if C++17 is supported)
 - `std::chrono::duration<Rep, Period>`
 - `std::chrono::time_point<Clock, Duration>`
 - `rc::Maybe<T>`
