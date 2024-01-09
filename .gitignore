@@ -8,3 +8,5 @@ ext/boost
 **/Makefile
 librapidcheck.a
 rapidcheckConfig.cmake
+vs
+clang-cl

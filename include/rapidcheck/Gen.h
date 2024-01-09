@@ -8,7 +8,7 @@ namespace rc {
 class Random;
 
 /// The reference size. This is not a max limit on the generator size parameter
-/// but serves as a guideline. In general, genenerators for which there is a
+/// but serves as a guideline. In general, generators for which there is a
 /// natural limit which is not too expensive to generate should max out at this.
 /// This applies to, for example, generation of numbers but not to the
 /// generation of collection where there is an associated cost to generating

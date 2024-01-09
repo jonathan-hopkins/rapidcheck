@@ -6,7 +6,9 @@ if(POLICY CMP0063)
   cmake_policy(SET CMP0063 NEW)
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(RC_ENABLE_TESTS "Build RapidCheck tests" OFF)
 option(RC_ENABLE_EXAMPLES "Build RapidCheck examples" OFF)
@@ -29,6 +31,9 @@ else()
     endif()
   endif()
 endif()
+
+file(GLOB_RECURSE RAPIDCHECK_SOURCE_H ${CMAKE_CURRENT_SOURCE_DIR}/include/**.h ${CMAKE_CURRENT_SOURCE_DIR}/include/**.hpp)
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Header Files" FILES ${RAPIDCHECK_SOURCE_H})
 
 # RapidCheck will be built either as a static or a dynamic library depending on the CMake global
 # variable BUILD_SHARED_LIBS (https://cmake.org/cmake/help/latest/variable/BUILD_SHARED_LIBS.html).
@@ -70,6 +75,7 @@ add_library(rapidcheck
   src/gen/detail/GenerationHandler.cpp
   src/gen/detail/Recipe.cpp
   src/gen/detail/ScaleInteger.cpp
+  ${RAPIDCHECK_SOURCE_H}
   )
 
 # Random is used a LOT so it should preferably be really fast.

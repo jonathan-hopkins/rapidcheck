@@ -29,6 +29,71 @@ TEST_CASE("gen::variant") {
 
     std::visit(overloaded{[&params](auto v) { RC_ASSERT(v == params.size); }},
                value);
+
+    //auto sh = rc::shrink::towards(6, 53);
+    //while (auto v = sh.next()) {
+    //  std::cout << *v << ", ";
+    //}
+    //std::cout << "\n";
+    //sh = rc::shrink::towards(53, 6);
+    //while (auto v = sh.next()) {
+    //  std::cout << *v << ", ";
+    //}
+    //std::cout << "\n";
+    //sh = rc::shrink::towards(-6, -53);
+    //while (auto v = sh.next()) {
+    //  std::cout << *v << ", ";
+    //}
+    //std::cout << "\n";
+    //sh = rc::shrink::towards(-53, -6);
+    //while (auto v = sh.next()) {
+    //  std::cout << *v << ", ";
+    //}
+    //std::cout << "\n";
+
+    //auto shrinkables = rc::gen::detail::integral<int>(Random(), 3).shrinks();
+    //auto shrinkables = shrinkable::shrinkRecur(
+    //    53,
+    //    &shrink::integral<int>).shrinks();
+    //while (auto shrinks = shrinkables.next()) {
+    //  auto range = shrinks->shrinks();
+    //  while (auto v = range.next()) {
+    //    std::cout << v->value() << ", ";
+    //  }
+    //  std::cout << "\n";
+    //}
+    //std::cout << "\n";
+
+    {
+      auto sh = rc::shrink::towards(53, 0);
+      while (auto v = sh.next()) {
+        std::cout << *v << ", ";
+      }
+      std::cout << "\n";
+    }
+
+    {
+      auto sh = rc::shrink::towards<unsigned int>(53, 0);
+      while (auto v = sh.next()) {
+        std::cout << *v << ", ";
+      }
+      std::cout << "\n";
+    }
+
+    {
+      auto sh = rc::shrink::towards<int>(53, 6);
+      while (auto v = sh.next()) {
+        std::cout << *v << ", ";
+      }
+      std::cout << "\n";
+    }
+
+     auto shrinkables = shrinkable::shrinkRecur(
+         -53, &shrink::integral<int>).shrinks();
+    while (auto v = shrinkables.next()) {
+      std::cout << v->value() << ", ";
+    }
+    std::cout << "\n";
   });
 
   prop("works with convertible constructors", []() {

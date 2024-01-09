@@ -228,7 +228,7 @@ Generates a value which is less than `0`.
 
 ```C++
 // Example:
-const auto x = *gen::positive<int>();
+const auto x = *gen::negative<int>();
 ```
 
 ### `Gen<T> nonNegative()`
@@ -311,7 +311,7 @@ Takes a sequence of weights paired with elements and generates one of the elemen
 
 ```C++
 // Example:
-const auto animal = *gen::weightedElement({
+const auto animal = *gen::weightedElement<std::string>({
     {4, std::string("horse")},
     {2, std::string("donkey")},
     {1, std::string("zebra")}});
@@ -355,9 +355,9 @@ Like `weightedElement(std::initializer_list<std::pair<std::size_t, T>>)` but spe
 
 ```C++
 // Example:
-const auto username = *gen::weightedOneOf({
+const auto username = *gen::weightedOneOf<std::string>({
     {1, gen::arbitrary<std::string>()},
-    (4, gen::element<std::string>("foo", "bar", "baz"))});
+    {4, gen::element<std::string>("foo", "bar", "baz")}});
 ```
 
 ### `Gen<T> sizedOneOf(Gen<T>... gens)`

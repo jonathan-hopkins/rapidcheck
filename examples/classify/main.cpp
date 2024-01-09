@@ -28,7 +28,11 @@ struct Arbitrary<User> {
 } // namespace rc
 
 int main() {
-  rc::check("RC_TAG", [](const User &user) { RC_TAG(user.gender); });
+
+  rc::check("RC_TAG", [](const User &user) {
+    auto v = *rc::gen::resize(30, rc::gen::arbitrary<std::vector<int>>());
+      RC_TAG(user.gender);
+      });
 
   rc::check("RC_CLASSIFY",
             [](const User &user) { RC_CLASSIFY(user.username.empty()); });
